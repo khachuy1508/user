@@ -1,0 +1,151 @@
+swagger: '2.0'
+info:
+  description: This is a sample server User
+  version: 1.0.0
+  title: User
+host: 'localhost:8080'
+basePath: /api
+tags:
+  - name: User
+    description: Everything about your User
+schemes:
+  - http
+paths:
+  /api/users:
+    post:
+      tags:
+        - User
+      summary: Add a new User
+      consumes:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: created user
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+        '405':
+          description: Invalid Input
+    get:
+      tags:
+        - User
+      summary: Get all user by keyword
+      produces:
+        - "application/json"
+      parameters:
+        - in: query
+          name: keyword
+          type: string
+          required: false
+        - in: query
+          name: page
+          type: integer
+          required: false
+        - in: query
+          name: size
+          type: integer
+          required: false
+        - in: query
+          name: sort
+          type: string
+          required: false
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/User'
+    delete:
+      tags:
+        - User
+      summary: delete all user
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: OK
+    
+  /api/users/{id}:
+    put:
+      tags: 
+        - User
+      summary: Update User
+      consumes:
+        - "application/json"
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+    get:
+      tags: 
+        - User
+      summary: Get User by id
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/User'
+        '400':
+          description: Invalid Id
+    delete:
+      tags: 
+        - User
+      summary: Delete User by id
+      produces:
+        - "application/json"
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid Id
+      
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      dateOfBirth: 
+        type: string
+      address:
+        type: string
+      phoneNumber:
+        type: string
